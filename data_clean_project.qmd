@@ -1,0 +1,45 @@
+---
+title: "Data Cleaning Small Project"
+author: "Gurkirat Singh"
+date: "2025-10-09"
+format:
+  html:
+    embed-resources: true
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+View(RTLedu::strava)
+```
+
+You can add options to executable code like this 
+
+```{r}
+data1 <- RTLedu::strava
+data1
+
+cleaned_data <- data1 %>% 
+  select(Date, Activity.Type, Runner, Avg.HR, Max.HR, Aerobic.TE, Avg.Pace, Best.Pace, Distance, Time, Calories,
+    Avg.Power, Max.Power, Training.Stress.Score.,
+    Avg.Run.Cadence, Max.Run.Cadence, Avg.Stride.Length, Avg.Vertical.Ratio,
+    Avg.Vertical.Oscillation, Avg.Ground.Contact.Time,
+    Total.Ascent, Total.Descent, Moving.Time, Elapsed.Time,
+    Avg.Resp, Max.Resp, Min.Resp)
+
+cleaned_data
+
+cleaner_data <- cleaned_data %>% 
+  select(where(~ all(!is.na(.) & . != 0))) %>% 
+  select(-Avg.Resp, -Max.Resp, -Min.Resp)
+
+cleaner_data
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
